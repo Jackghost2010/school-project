@@ -6,51 +6,54 @@ try:
     from os import system
     import hashlib
 
+    def hashing(password):
+        return str(hashlib.sha256(password.encode()).hexdigest())
+        
 
+        
+    def submits():
+        username = username_var.get()
+        Password = password_var.get()
+        
 
-    def submits(username):
-
-        with open("text.txt", "w") as file:
-            file.write()
-
-    
-    def register(root):
-
-        root.title("register")  # Set the window title
-        canvas = tk.Canvas(root,height = 500, width = 700).pack()
-        section = tk.Label(root, text="register").pack()
-
-
-        username_labels = tk.Label(root,text="username").pack()  # Create a label
-        username = tk.Entry(root).pack()
-        password_labels = tk.Label(root,text="password").pack()  # Create a label
-        password = tk.Entry(root,show="*").pack()
-
-        submit = tk.Button(root,text="submit information" ).pack()
-
-
-
-
-        exited = tk.Button(root,text="exit the code",command="destroy.root").pack()
-
-
-
-
-
-
+        with open("check.txt", "w") as file:
+            file.write(username + "\n")
+            file.write(str(hashing(Password)) + "\n")
 
 
 
         
 
+    
+    def register(root):
+
+        root.title("register")  # Set the window title
+        section = tk.Label(root, text="register").pack()
+
+
+        username_labels = tk.Label(root,text="username").pack()  # Create a label
+        username_entry = tk.Entry(root, textvariable = username_var).pack()
+        password_labels = tk.Label(root,text="password").pack()  # Create a label
+
+        password = tk.Entry(root,textvariable = password_var ,show="*").pack()
+
+
+
+        submit = tk.Button(root,text = "submit info",command = submits).pack()
+
+        escape = tk.Button(root,text = "exit",command= root.destroy).pack()
+
+
+        canvas = tk.Canvas(root, height = 700, width = 500).pack()
+
+
 
     def login(root):
         root.title("login")  # Set the window title
-        canvas = tk.Canvas(root,height = 500, width = 700)
-        label = tk.Label(root, text="login")  # Create a label
-        label.pack()  # Add the label to the window
-        canvas.pack()
 
+        label = tk.Label(root, text="login").pack()  # Create a label
+
+        canvas = tk.Canvas(root,height = 500, width = 700).pack()
 
     def mainPage(root):
 
@@ -58,22 +61,23 @@ try:
         canvas = tk.Canvas(root).pack()
         label = tk.Label(root, text="works").pack()
 
-        root.mainloop() 
+        root.mainloop()
 
 
-    def main():
-            
-        root = tk.Tk()  # Create the main window
+    root = tk.Tk()  # Create the main window
 
-        with open("check.txt", "r") as f:
-            if f.read() == "":
-                register(root)
-            else:
-                login(root)
+    username_var = tk.StringVar()
+    password_var = tk.StringVar()
+
+    with open("check.txt", "r") as f:
+
+        
+        
+        register(root)
+
+    root.mainloop() 
 
 
-        root.mainloop()  # Start the Tkinter event loop
-    main()
         
         
         
